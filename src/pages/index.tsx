@@ -19,7 +19,9 @@ export const getStaticProps = async() => {
     props: {
       allBooks,
       recoBooks,
-    }
+    },
+    //ISR 방식 설정. 유통기한 시간을 초 단위로 설정
+    revalidate: 3, 
   }
 };
 
