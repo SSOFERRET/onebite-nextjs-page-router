@@ -1,11 +1,12 @@
 import SearchableLayout from "@/components/searchable-layout";
 import style from "./index.module.css";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import BookItem from "@/components/book-item";
 import { InferGetStaticPropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export const getStaticProps = async() => {
   const [allBooks, recoBooks] = await Promise.all([
@@ -22,6 +23,12 @@ export const getStaticProps = async() => {
 };
 
 export default function Home({ allBooks, recoBooks }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.push("/api/revalidate");
+  }, [])
+
   return (
     <>
       <Head>
