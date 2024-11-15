@@ -18,7 +18,6 @@ export const getStaticProps = async() => {
       allBooks,
       recoBooks,
     },
-    // revalidate: 60,
   }
 };
 
@@ -26,28 +25,20 @@ export default function Home({ allBooks, recoBooks }: InferGetStaticPropsType<ty
   useEffect(() => {
     async function triggerRevalidation() {
       try {
-        const response = await fetch('/api/revalidate', {
+        await fetch('/api/revalidate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ path: '/' }),
         });
-
-        const data = await response.json();
-        if (data.revalidated) {
-          console.log('Revalidation triggered successfully');
-        } else {
-          console.log('Failed to trigger revalidation');
-        }
       } catch (error) {
         console.error('Error triggering revalidation:', error);
       }
     }
 
-    // 컴포넌트가 마운트될 때 자동으로 호출
     triggerRevalidation();
-  }, []); // 빈 배열로 설정해 한 번만 실행되도록 함
+  }, []);
   
   return (
     <>
