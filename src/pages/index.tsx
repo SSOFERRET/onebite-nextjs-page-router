@@ -27,6 +27,7 @@ export default function Home({ allBooks, recoBooks }: InferGetStaticPropsType<ty
   
   useEffect(() => {
     router.push("/api/revalidate");
+    router.back();
   }, [])
 
   return (
